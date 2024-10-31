@@ -19,7 +19,7 @@ from sklearn import metrics
 # Exemple :  k-Means Clustering
 
 path = './artificial/'
-name="square1.arff"
+name="birch-rg3.arff"
 
 #path_out = './fig/'
 databrut = arff.loadarff(open(path+str(name), 'r'))
@@ -87,8 +87,16 @@ for k in range(2,50):
 
 #print("Runtime using KMeans: ", str(runtime),"ms")
 #print("labels", labels)
-plt.plot(range(2,50),timeKMeans,color='green')
-plt.plot(range(2,50),timeMiniBatch,color='blue')
+plt.figure(figsize=(10, 6))  # Optionnel : Ajustez la taille de la figure
+plt.plot(range(2, 50), timeKMeans, color='green', label='Temps d\'exécution K-means')
+plt.plot(range(2, 50), timeMiniBatch, color='blue', label='Temps d\'exécution minibatch K-means')  # Assurez-vous que timeMiniBatch est défini
+plt.title('Comparaison des temps d\'exécution de K-means et minibatch K-means')
+plt.xlabel('Nombre de clusters (k)')
+plt.ylabel('Temps d\'exécution (ms)')
+plt.legend()
+plt.grid()  # Optionnel : Ajoute une grille pour une meilleure lisibilité
+plt.xlim(2, 49)  # Définir les limites pour l'axe des x si nécessaire
+plt.ylim(0, max(max(timeKMeans), max(timeMiniBatch)) * 1.1)  # Définir les limites pour l'axe des y pour une meilleure visualisation
 plt.show()
 
 from sklearn.metrics.pairwise import euclidean_distances
