@@ -19,7 +19,7 @@ from sklearn.metrics import davies_bouldin_score
 # Exemple :  k-Means Clustering
 
 path = './artificial/'
-name="square1.arff"
+name="sizes1.arff"
 test = ""
 
 #path_out = './fig/'

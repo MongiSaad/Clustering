@@ -13,7 +13,7 @@ from sklearn import preprocessing
 
 
 path = './artificial/'
-name="xclara.arff"
+name="donut3.arff"
 
 #path_out = './fig/'
 databrut = arff.loadarff(open(path+str(name), 'r'))
@@ -36,7 +36,7 @@ plt.title("Donnees initiales : "+ str(name))
 plt.show()
 
 
-# Run DBSCAN clustering method 
+'''# Run DBSCAN clustering method 
 # for a given number of parameters eps and min_samples
 # 
 print("------------------------------------------------------")
@@ -57,7 +57,7 @@ print('Number of noise points: %d' % n_noise)
 
 plt.scatter(f0, f1, c=labels, s=8)
 plt.title("Données après clustering DBSCAN (1) - Epislon= "+str(epsilon)+" MinPts= "+str(min_pts))
-plt.show()
+plt.show()'''
 
 
 ####################################################
@@ -78,8 +78,8 @@ plt.show()
 print("------------------------------------------------------")
 print("Appel DBSCAN (2) sur données standardisees ... ")
 tps1 = time.time()
-epsilon=0.05 #0.05
-min_pts=5 # 10
+epsilon=0.2
+min_pts=6
 model = cluster.DBSCAN(eps=epsilon, min_samples=min_pts)
 model.fit(data_scaled)
 
@@ -92,7 +92,7 @@ print('Number of clusters: %d' % n_clusters)
 print('Number of noise points: %d' % n_noise)
 
 plt.scatter(f0_scaled, f1_scaled, c=labels, s=8)
-plt.title("Données après clustering DBSCAN (2) - Epislon= "+str(epsilon)+" MinPts= "+str(min_pts))
+plt.title("Données après clustering DBSCAN (2) - Epislon= "+str(epsilon)+" , MinPts= "+str(min_pts) +" \nnb clusters = "+str(n_clusters)+", nb noise points= "+str(n_noise))
 plt.show()
 
 

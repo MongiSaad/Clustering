@@ -34,19 +34,19 @@ print("---------------------------------------")
 print("Affichage données initiales            "+ str(name))
 f0 = datanp[:,0] # tous les élements de la première colonne
 f1 = datanp[:,1] # tous les éléments de la deuxième colonne
-'''
+
 #plt.figure(figsize=(6, 6))
 plt.scatter(f0, f1, s=8)
 plt.title("Donnees initiales : "+ str(name))
 #plt.savefig(path_out+"Plot-kmeans-code1-"+str(name)+"-init.jpg",bbox_inches='tight', pad_inches=0.1)
-plt.show()'''
+plt.show()
 
 # Run clustering method for a given number of clusters
 print("------------------------------------------------------")
 print("Appel KMeans pour une valeur de k fixée")
 
 stat = []
-for k in range(1, 50):
+for k in range(1, 20):
     tps1 = time.time()
     model = cluster.KMeans(n_clusters=k, init='k-means++', n_init=1)
     model.fit(datanp)
@@ -65,29 +65,22 @@ for k in range(1, 50):
 #plt.savefig(path_out+"Plot-kmeans-code1-"+str(name)+"-cluster.jpg",bbox_inches='tight', pad_inches=0.1)
 #plt.show()
 
-cond = 1
-indice = 0
-div_prev = 0
-k_temp = 0
-while(cond > 0):
-    diff1 = stat[indice][2] - stat[indice + 1][2]
-    diff2 = stat[indice + 1][2] - stat[indice + 2][2]
-    div = diff1 / diff2
-    k_temp = stat[indice][0]
-    cond = div - div_prev
-    div_prev = div
-    indice += 1
 
-k_optimal = k_temp
+# Calcul du coude
+inertie = [ligne[2] for ligne in stat]
+inertie_premier = np.diff(inertie)
+inertie_div = inertie_premier[:-1] / inertie_premier[1:]
+print("inertie : ")
+print(inertie_div)
 
-print("résultat optimal : ", k_optimal)
-
+k_optimal = np.argmax(inertie_div) + 2
 k_tab =  [row[0] for row in stat]
 inertie_tab = [row[2] for row in stat]
 plt.plot(k_tab, inertie_tab)
 plt.xlabel("nb cluster")
 plt.ylabel("Inertie")
 plt.title("Nombre de cluster optimal : "+ str(k_optimal))
+# Affichage du k optimal
 plt.axvline(x=k_optimal, color="red")
 plt.show()
 

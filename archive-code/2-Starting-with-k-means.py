@@ -18,7 +18,7 @@ from sklearn import metrics
 # Exemple :  k-Means Clustering
 
 path = './artificial/'
-name="square1.arff"
+name="2d-4c.arff"
 
 #path_out = './fig/'
 databrut = arff.loadarff(open(path+str(name), 'r'))
